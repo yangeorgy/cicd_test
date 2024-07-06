@@ -26,5 +26,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Print directory contents
+      run: ls -l  # Verify directory contents for Jest
+
     - name: Run tests
       run: npm test
