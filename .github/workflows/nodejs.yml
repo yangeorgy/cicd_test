@@ -25,4 +25,8 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm test
+      run: |
+          npm install
+          ls -l node_modules/.bin  # Check permissions and existence of Jest
+          npm list jest            # Check if Jest is installed
+          npm test                 # Run Jest tests
