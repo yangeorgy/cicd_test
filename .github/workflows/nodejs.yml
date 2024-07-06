@@ -10,23 +10,41 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Use windows-latest for Windows environments
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: |
-          npm install
-          ls -l node_modules/.bin  # Check permissions and existence of Jest
-          npm list jest            # Check if Jest is installed
-          npm test                 # Run Jest tests
+      - name: Print GitHub Actions Environment
+        run: |
+          echo "GitHub Actions Environment:"
+          echo "---------------------------"
+          env  # Print environment variables
+          echo ""
+          echo "Node.js version:"
+          node --version  # Check Node.js version
+          echo ""
+          echo "npm version:"
+          npm --version  # Check npm version
+          echo ""
+          echo "Installed packages:"
+          npm list --depth=0  # List top-level dependencies
+          echo ""
+          echo "List of files in node_modules/.bin:"
+          ls -l node_modules/.bin  # Check permissions and list of binaries
+          echo ""
+          echo "Current directory contents:"
+          ls -la  # List all files in the current directory
+          echo ""
+
+      - name: Run tests
+        run: npm test
